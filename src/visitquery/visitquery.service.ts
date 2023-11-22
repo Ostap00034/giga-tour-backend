@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { CreateVisitQueryDto } from './dto/create-visit-query.dto'
+import { UpdateVisitQueryStatus } from './dto/update-status-query.dto'
 
 @Injectable()
 export class VisitqueryService {
@@ -8,6 +9,27 @@ export class VisitqueryService {
 
 	async create(dto: CreateVisitQueryDto) {
 		return await this.prisma.visitQuery.create({ data: dto })
+	}
+
+	async updateStatus(id: number, dto: UpdateVisitQueryStatus) {
+		const visitquery = await this.getById(id)
+
+		return this.prisma.visitQuery.update({
+			where: { id },
+			data: {
+				status: dto.status,
+			},
+		})
+	}
+
+	async getById(id: number) {
+		const visitquery = await this.prisma.visitQuery.findUnique({
+			where: { id },
+		})
+
+		if (!visitquery) throw new NotFoundException('Такая заявка не найдена.')
+
+		return visitquery
 	}
 
 	async getAll() {

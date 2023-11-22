@@ -38,15 +38,15 @@ export class AuthService {
 		const tokens = await this.issueTokens(admin.id)
 
 		return {
-			admin: this.returnAdminFields(admin),
+			user: this.returnAdminFields(admin),
 			...tokens,
 		}
 	}
 
-	private returnAdminFields(admin: Partial<Admin>) {
+	private returnAdminFields(user: Partial<Admin>) {
 		return {
-			id: admin.id,
-			login: admin.login,
+			id: user.id,
+			login: user.login,
 		}
 	}
 
@@ -56,16 +56,16 @@ export class AuthService {
 		if (!result) throw new UnauthorizedException('Неверный refresh token')
 
 		// const admin = await this.admin.getById(result.id)
-		const admin = await this.prisma.admin.findUnique({
+		const user = await this.prisma.admin.findUnique({
 			where: {
 				id: result.id,
 			},
 		})
 
-		const tokens = await this.issueTokens(admin.id)
+		const tokens = await this.issueTokens(user.id)
 
 		return {
-			admin: this.returnAdminFields(admin),
+			user: this.returnAdminFields(user),
 			...tokens,
 		}
 	}
@@ -89,7 +89,7 @@ export class AuthService {
 		const tokens = await this.issueTokens(admin.id)
 
 		return {
-			admin: this.returnAdminFields(admin),
+			user: this.returnAdminFields(admin),
 			...tokens,
 		}
 	}

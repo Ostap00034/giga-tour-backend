@@ -14,7 +14,7 @@ model Admin {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
-  login     String @unique
+  login     String   @unique
   password  String
 }
 
@@ -22,6 +22,7 @@ model VisitQuery {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
+  status      String   @default("На рассмотрении")
   to          String
   fio         String
   phoneNumber String
@@ -32,9 +33,25 @@ model IntershipQuery {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
+  status      String   @default("На рассмотрении")
   to          String
   fio         String
   phoneNumber String
   activity    String
   skills      String
+}
+
+model Resident {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt()
+  creator         String
+  fieldOfActivity String
+  info            String
+  name            String
+  created         String
+  service         String
+  scenePanoImg    String
+  hotSpotArr      String[] @default([])
+  init            String[] @default(["0", "0"])
 }
