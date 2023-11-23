@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { CreateResidentDto } from './dto/create-resident-dto'
+import { UpdateResidentDto } from './dto/update-resident.dto'
 
 @Injectable()
 export class ResidentService {
@@ -18,6 +19,13 @@ export class ResidentService {
 		if (!resident) throw new NotFoundException('Такая заявка не найдена')
 
 		return resident
+	}
+
+	async update(id: number, dto: UpdateResidentDto) {
+		return await this.prisma.resident.update({
+			where: { id },
+			data: dto,
+		})
 	}
 
 	async getAll() {

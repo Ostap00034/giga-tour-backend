@@ -7,10 +7,12 @@ import {
 	ValidationPipe,
 	HttpCode,
 	Body,
+	Put,
 } from '@nestjs/common'
 import { ResidentService } from './resident.service'
 import { Auth } from 'src/auth/decorator/auth.decorator'
 import { CreateResidentDto } from './dto/create-resident-dto'
+import { UpdateResidentDto } from './dto/update-resident.dto'
 
 @Controller('resident')
 export class ResidentController {
@@ -22,6 +24,12 @@ export class ResidentController {
 	@Post()
 	async create(@Body() dto: CreateResidentDto) {
 		return this.residentService.create(dto)
+	}
+
+	@Auth()
+	@Put(':id')
+	async update(@Param('id') id: string, @Body() dto: UpdateResidentDto) {
+		return this.residentService.update(+id, dto)
 	}
 
 	@Get()
