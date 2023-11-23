@@ -8,9 +8,10 @@ import { AdminModule } from './admin/admin.module';
 import { VisitqueryModule } from './visitquery/visitquery.module';
 import { IntershipqueryModule } from './intershipquery/intershipquery.module';
 import { ResidentModule } from './resident/resident.module';
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
-	imports: [ConfigModule.forRoot(), AuthModule, AdminModule, VisitqueryModule, IntershipqueryModule, ResidentModule],
+	imports: [ConfigModule.forRoot(), AuthModule, AdminModule, VisitqueryModule, IntershipqueryModule, ResidentModule, GatewayModule],
 	controllers: [AppController],
 	providers: [AppService, PrismaService],
 })

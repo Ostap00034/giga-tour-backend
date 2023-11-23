@@ -2,33 +2,47 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { CreateInstershipQueryDto } from './dto/create-intership-query.dto'
 import { UpdateIntershipQueryStatus } from './dto/update-status-query.dto'
+import { IntershipQueryGateway } from 'src/gateway/intership.gateway'
 
 @Injectable()
 export class IntershipqueryService {
-	constructor(private readonly prisma: PrismaService) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly intershipQueryGateway: IntershipQueryGateway
+	) {}
 
 	async create(dto: CreateInstershipQueryDto) {
-		return await this.prisma.intershipQuery.create({ data: dto })
+		const newquery = await this.prisma.intershipQuery.create({ data: dto })
+
+		this.intershipQueryGateway.sendCreateIntershipQuery(newquery)
+
+		return newquery
 	}
 
 	async updateStatus(id: number, dto: UpdateIntershipQueryStatus) {
 		const intershipquery = await this.getById(id)
 
+		let newquery
+
 		if (dto.status === 'Reject')
-			return this.prisma.intershipQuery.update({
+			newquery = await this.prisma.intershipQuery.update({
 				where: { id },
 				data: {
 					status: dto.status,
 				},
 			})
 
-		return this.prisma.intershipQuery.update({
+		newquery = await this.prisma.intershipQuery.update({
 			where: { id },
 			data: {
 				status: dto.status,
 				appointmentDate: dto.appointmentDate,
 			},
 		})
+
+		this.intershipQueryGateway.sendUpdatedIntershipQuery(newquery)
+
+		return newquery
 	}
 
 	async getById(id: number) {
