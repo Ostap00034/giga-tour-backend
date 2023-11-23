@@ -26,7 +26,7 @@ export class VisitqueryService {
 			where: { id },
 			data: {
 				status: dto.status,
-				appointmentDate: dto.date,
+				appointmentDate: dto.appointmentDate,
 			},
 		})
 	}

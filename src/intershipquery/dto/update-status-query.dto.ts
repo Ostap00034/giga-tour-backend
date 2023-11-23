@@ -6,5 +6,5 @@ export class UpdateIntershipQueryStatus {
 
 	@IsOptional()
 	@IsDate()
-	date: Date
+	appointmentDate: Date
 }

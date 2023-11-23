@@ -6,5 +6,5 @@ export class UpdateVisitQueryStatus {
 
 	@IsOptional()
 	@IsDate()
-	date: Date
+	appointmentDate: Date
 }

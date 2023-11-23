@@ -31,7 +31,7 @@ export class VisitqueryController {
 	}
 
 	@Auth()
-	@UsePipes(new ValidationPipe())
+	// @UsePipes(new ValidationPipe())
 	@Put(':id')
 	async updateStatus(
 		@Param('id') id: string,
