@@ -14,10 +14,19 @@ export class IntershipqueryService {
 	async updateStatus(id: number, dto: UpdateIntershipQueryStatus) {
 		const intershipquery = await this.getById(id)
 
+		if (dto.status === 'Reject')
+			return this.prisma.intershipQuery.update({
+				where: { id },
+				data: {
+					status: dto.status,
+				},
+			})
+
 		return this.prisma.intershipQuery.update({
 			where: { id },
 			data: {
 				status: dto.status,
+				appointmentDate: dto.date,
 			},
 		})
 	}

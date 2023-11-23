@@ -19,26 +19,28 @@ model Admin {
 }
 
 model VisitQuery {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt()
-  status      String   @default("На рассмотрении")
-  to          String
-  fio         String
-  phoneNumber String
-  activity    String
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt()
+  status          String    @default("In analys")
+  to              String
+  fio             String
+  phoneNumber     String
+  activity        String
+  appointmentDate DateTime?
 }
 
 model IntershipQuery {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt()
-  status      String   @default("На рассмотрении")
-  to          String
-  fio         String
-  phoneNumber String
-  activity    String
-  skills      String
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt()
+  status          String    @default("In analys")
+  to              String
+  fio             String
+  phoneNumber     String
+  activity        String
+  skills          String
+  appointmentDate DateTime?
 }
 
 model Resident {

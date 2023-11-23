@@ -14,10 +14,19 @@ export class VisitqueryService {
 	async updateStatus(id: number, dto: UpdateVisitQueryStatus) {
 		const visitquery = await this.getById(id)
 
+		if (dto.status === 'Reject')
+			return this.prisma.visitQuery.update({
+				where: { id },
+				data: {
+					status: dto.status,
+				},
+			})
+
 		return this.prisma.visitQuery.update({
 			where: { id },
 			data: {
 				status: dto.status,
+				appointmentDate: dto.date,
 			},
 		})
 	}
