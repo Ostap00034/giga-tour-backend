@@ -29,6 +29,7 @@ export class IntershipqueryService {
 				where: { id },
 				data: {
 					status: dto.status,
+					appointmentDate: null,
 				},
 			})
 

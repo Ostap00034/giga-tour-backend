@@ -11,7 +11,7 @@ import { UpdateVisitQueryStatus } from 'src/visitquery/dto/update-status-query.d
 
 @WebSocketGateway(4201, {
 	cors: {
-		origin: ['https://eye-walk.ru', 'http://localhost:3000'],
+		origin: '*',
 		credentials: true,
 		transports: ['websocket', 'polling'],
 	},
